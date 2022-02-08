@@ -1,4 +1,4 @@
-name: CenBoMin-sync
+name: kedaya-sync
 on:
   schedule:
     - cron: '1 */3 * * *'
@@ -6,7 +6,7 @@ on:
   watch:
     types: started
   repository_dispatch:
-    types: sync-CenBoMin-GithubSync
+    types: sync-kedaya-GithubSync
 jobs:
   repo-sync:
     env:
