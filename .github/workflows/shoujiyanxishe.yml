@@ -1,0 +1,29 @@
+# File: .github/workflows/shoujiyanxishe.yml
+name: shoujiyanxishe-GithubSync
+on: 
+  schedule: 
+  - cron: '22 2 */3 * *' #此处为同步运行时间
+  workflow_dispatch: 
+  watch: 
+   types: started 
+  repository_dispatch:
+    types: sync-shoujiyanxishe-GithubSync
+jobs: 
+ repo-sync: 
+     env: 
+       PAT: ${{ secrets.PAT }}
+     runs-on: ubuntu-latest 
+     if: github.event.repository.owner.id == github.event.sender.id 
+     steps: 
+      - uses: actions/checkout@v2 
+        with: 
+          persist-credentials: false 
+           
+      - name: sync xxx-GithubSync
+        uses: repo-sync/github-sync@v2 
+        if: env.PAT 
+        with: 
+          source_repo: "https://github.com/shoujiyanxishe/shjb.git" # 手机研习社
+          source_branch: "main" 
+          destination_branch: "手机研习社"
+          github_token: ${{ secrets.PAT }}
